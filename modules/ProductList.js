@@ -21,7 +21,7 @@ class ProductList {
 
         const item          = this.createItem()
         const deleteProduct = this.createDeleteProduct()
-        const deleteImage = this.createDelteImage()
+        const deleteImage   = this.createDelteImage()
         const coverImage    = this.createCoverImage()
         const image         = this.createImage(options.link)
         const itemBody      = this.createItemBody()

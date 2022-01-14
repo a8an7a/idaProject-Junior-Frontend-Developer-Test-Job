@@ -10,20 +10,22 @@ const imageLinks = [
     'https://bit.ly/3FmBFw4',
     'https://bit.ly/3fmAIcH'
 ]
-const someHeader = 'Наименование товара'
-const someDescription = 'Довольно-таки интересное описание товара в несколько строк.'
+
+const description = 'Довольно-таки интересное описание товара в несколько строк.'
 
 // Заполняем наш список товаров, чтобы не было так пусто :)
 for (let index = 0; index < imageLinks.length; index++) {
     const num = rand_10(1000, 100000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    
     const item = {
         link: imageLinks[index],
         header: `Наименование товара #${rand(1, 9999)}`,
-        description: `${someDescription + someDescription}`,
+        description: `${description + description}`,
         price: `${num} руб.`,
     }
+
     const newProductItem = new ProductItem(item)
-    newProductItem.appendProductItem(newProductItem)
+        newProductItem.appendProductItem(newProductItem)
 }
 
 // Балуемся со случайными числами, чтобы наш список товаров не был таким скучным
