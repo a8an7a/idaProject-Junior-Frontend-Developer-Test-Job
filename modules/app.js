@@ -15,11 +15,12 @@ const someDescription = 'Довольно-таки интересное опис
 
 // Заполняем наш список товаров, чтобы не было так пусто :)
 for (let index = 0; index < imageLinks.length; index++) {
+    const num = rand_10(1000, 100000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     const item = {
         link: imageLinks[index],
         header: `Наименование товара #${rand(1, 9999)}`,
         description: `${someDescription + someDescription}`,
-        price: `${rand_10(1000, 100000)} руб.`,
+        price: `${num} руб.`,
     }
     const newProductItem = new ProductItem(item)
     newProductItem.appendProductItem(newProductItem)
