@@ -45,7 +45,7 @@ function Validate () {
         if (input.classList.contains('__error')) {
             formRemoveError(input)
         }
-        if (input.classList.contains('.__sucess')) {
+        if (input.classList.contains('__sucess')) {
             formRemoveSucess(input)
         }
 
