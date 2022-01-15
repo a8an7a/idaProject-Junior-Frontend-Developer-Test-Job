@@ -29,6 +29,9 @@ function onFormChange (event) {
     if (!error) {
         btnSubmit.classList.add('__sucess__btn')
         btnSubmit.disabled = false
+    } else {
+        btnSubmit.classList.remove('__sucess__btn')
+        btnSubmit.disabled = true
     }
 }
 
