@@ -83,6 +83,7 @@ body {
     background: #FFFEFB;
     border: 1px solid transparent;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 }
 
 .input__filed:hover {
@@ -91,7 +92,7 @@ body {
 }
 
 .input__filed:focus {
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .input__filed::placeholder {
@@ -247,7 +248,7 @@ span.__sucess {
 
 .product__item:hover .product__item__delete {
     opacity: 1;
-    transition: opacity 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .product__item__delete {
@@ -256,8 +257,6 @@ span.__sucess {
     right: -8px;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
 
     width: 32px;
     height: 32px;
@@ -269,6 +268,10 @@ span.__sucess {
 
     cursor: pointer;
     transition: all .3s ease-in-out;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('resource/delete.svg');
 }
 
 .product__item__delete:hover {

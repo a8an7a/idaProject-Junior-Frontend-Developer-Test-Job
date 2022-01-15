@@ -17,7 +17,7 @@
         <div class="product__sidebar">
             <div class="product__header">Добавление товара</div>
             <div class="product__body">
-                <form action="#" class="product__form">
+                <form action="#" class="product__form" id="product__form">
                     <div class="product__body__fields">
                         <label class="input__name" for="productName">
                             Наименование товара
@@ -37,7 +37,8 @@
                             Ссылка на изображение товара
                             <span class="require__circle"></span>
                         </label>
-                        <input class="input__filed __required" type="text" id="productImageLink" name="productImageLink" placeholder="Введите ссылку">
+                        <input class="input__filed __required" type="text" id="productImageLink" name="productImageLink"
+                            placeholder="Введите ссылку">
                         <span class="message__box"></span>
                     </div>
                     <div class="product__body__fields">
@@ -45,11 +46,13 @@
                             Цена товара
                             <span class="require__circle">
                         </label>
-                        <input class="input__filed __required" type="text" name="productPrice" placeholder="Введите цену">
+                        <input class="input__filed __required" type="text" name="productPrice" id="productPrice"
+                            placeholder="Введите цену">
                         <span class="message__box"></span>
                     </div>
                     <div class="product__body__fields">
-                        <button class="product__body__submit" type="submit" disabled>Добавить товар</button>
+                        <button class="product__body__submit" id="product__body__submit" type="submit" disabled>Добавить
+                            товар</button>
                     </div>
                 </form>
             </div>
@@ -63,7 +66,8 @@
                     </button>
                 </div>
             </div>
-            <div class="product__list__wrap"></div>
+            <div class="product__list__wrap" id="product__list__wrap"></div>
+            </div>
         </div>
     </div>
 

@@ -1,93 +1,110 @@
-const form = document.querySelector('.product__form')
-const btnSubmit = document.querySelector('.product__body__submit')
+const form = document.querySelector('#product__form')
+const buttonSubmit = document.querySelector('#product__body__submit')
 
-form.addEventListener('change', onFormChange)
-form.addEventListener('submit', onFormSend)
+const classSucess = '__sucess'
+const classErrors = '__error'
 
-// Функуия валидации полей формы добовления товаров
-function onFormChange (event) {
-    const formRequired = document.querySelectorAll('.__required')
-    const message = 'Поле является обязательным'
-    let error = 0
 
-    for (const input of formRequired) {
-        if (input.classList.contains('__error')) {
-            formRemoveError(input)
-        }
-        if (input.classList.contains('__sucess')) {
-            formRemoveSucess(input)
-        }
+form.addEventListener('input', (event) => {
 
-        if (!input.value) {
-            formAddError(input, message)
-            error++
-        } else {
-            formAddSucess(input)
-        }
+    if (event.target.classList.contains('__required')) {
+        validateRequire(event.target)
     }
 
-    if (!error) {
-        btnSubmit.classList.add('__sucess__btn')
-        btnSubmit.disabled = false
+    toggleButton(buttonSubmit, checkError(form))
+})
+
+function validateRequire(element) {
+    if (!element.value) {
+
+        if (element.classList.contains(classSucess)) {
+            // Remove class .__sucess
+            toggleInputStatus(element, false, classSucess)
+        }
+        // Set class .__error
+        toggleInputStatus(element, true, classErrors)
     } else {
-        btnSubmit.classList.remove('__sucess__btn')
-        btnSubmit.disabled = true
+
+        if (element.classList.contains(classErrors)) {
+            // Remove class .__error
+            toggleInputStatus(element, false, classErrors)
+        }
+        // Set class .__sucess
+        toggleInputStatus(element, true, classSucess)
     }
 }
 
-function onFormSend (event) {
+form.addEventListener('submit', (event) => {
     event.preventDefault()
 
-    // Добавляем новый товар, если выполняется условие (форма прошла валидацию и кнопка "Добавить товар" активна)
-    if (!btnSubmit.disabled) {
-        
-        let productLink        = document.querySelector('.product__form input[name="productImageLink"]').value,
-            productHeader      = document.querySelector('.product__form input[name="productName"]').value,
-            productDescription = document.querySelector('.product__form textarea[name="productDescription"]').value,
-            productPrice       = document.querySelector('.product__form input[name="productPrice"]').value
-        
-        const item = {
-            link:        productLink,
-            header:      productHeader,
-            description: productDescription,
-            price:       productPrice,
+    if (!buttonSubmit.disabled) {
+
+        const [
+            productHeader,
+            productDescription,
+            productLink,
+            productPrice
+        ] = [...form.querySelectorAll('.input__filed')]
+
+        const product = {
+            link: productLink.value,
+            header: productHeader.value,
+            description: productDescription.value,
+            price: productPrice.value,
         }
 
-        const newProductItem = new ProductItem(item)
-            newProductItem.appendProductItem(newProductItem)
+        const newProductItem = new ProductItem(product)
+        newProductItem.appendProductItem(newProductItem)
 
         event.target.reset()
-        
+
         for (const input of document.querySelectorAll('.__required')) {
-            formRemoveSucess(input)
+            toggleInputStatus(input, false, classSucess)
         }
 
-        btnSubmit.classList.remove('__sucess__btn')
-        btnSubmit.disabled = true
+        toggleButton(buttonSubmit, false)
+    }
+})
+
+function checkError(form) {
+
+    const inputs = form.querySelectorAll('.__required')
+
+    for (const input of inputs) {
+        if (!input.value) {
+            return false
+        }
+    }
+
+    return true
+}
+
+function toggleButton(button, status) {
+
+    if (status) {
+        button.classList.add('__sucess__btn')
+        button.disabled = false
+    } else {
+        button.classList.remove('__sucess__btn')
+        button.disabled = true
     }
 }
 
-function formAddError (input, message) {
-    const messageBox = input.nextElementSibling
-        messageBox.classList.add('__error')
-        messageBox.innerText = message
-    input.classList.add('__error')
-}
+function toggleInputStatus(input, status = false, className = '') {
 
-function formAddSucess (input) {
-    input.classList.add('__sucess')
-}
-
-function formRemoveError (input) {
     const messageBox = input.nextElementSibling
-        messageBox.classList.remove('__error')
+
+    if (status) {
+        input.classList.add(className)
+        messageBox.classList.add(className)
+    } else {
+        input.classList.remove(className)
+        messageBox.classList.remove(className)
+    }
+
+    if (className === classErrors && status) {
+        messageBox.innerText = 'Поле является обязательным'
+    } else {
         messageBox.innerText = ''
-    input.classList.remove('__error')
-}
-
-function formRemoveSucess (input) {
-    const messageBox = input.nextElementSibling
-        messageBox.classList.remove('__sucess')
-        messageBox.innerText = ''
-    input.classList.remove('__sucess')
+    }
 }

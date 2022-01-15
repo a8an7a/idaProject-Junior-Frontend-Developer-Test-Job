@@ -13,9 +13,8 @@ const imageLinks = [
 
 const description = 'Довольно-таки интересное описание товара в несколько строк.'
 
-// Заполняем наш список товаров, чтобы не было так пусто :)
 for (let index = 0; index < imageLinks.length; index++) {
-    const num = rand_10(1000, 100000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    const num = replaceInputPrice(rand_10(1000, 100000))
     
     const item = {
         link: imageLinks[index],
@@ -28,11 +27,10 @@ for (let index = 0; index < imageLinks.length; index++) {
         newProductItem.appendProductItem(newProductItem)
 }
 
-// Балуемся со случайными числами, чтобы наш список товаров не был таким скучным
 function rand(min, max) {
-    return Math.round(min + Math.random() * (max + 1 - min));
+    return Math.round(Math.random() * (max - min) + min)
   }
 
 function rand_10(min, max){
-    return Math.round((Math.random() * (max - min) + min) / 10) * 10;
+    return Math.round(rand(min, max) / 10) * 10
 }
