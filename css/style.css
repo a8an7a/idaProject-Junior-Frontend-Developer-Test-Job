@@ -271,7 +271,7 @@ span.__sucess {
 
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('resource/delete.svg');
+    background-image: url('../resource/delete.svg');
 }
 
 .product__item__delete:hover {
