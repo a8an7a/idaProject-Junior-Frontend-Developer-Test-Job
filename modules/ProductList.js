@@ -56,6 +56,7 @@ class ProductList {
 
         if (elementType === 'p') {
             element.innerText = params
+            element.id = className
         }
 
         return element
