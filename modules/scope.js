@@ -4,22 +4,20 @@ const scopeList  = document.querySelector('#scope__list')
 const activeEvent = scopeButton.querySelector('.btn__text')
 const preloader = document.querySelector('.preloader')
 
+const classItemHide = 'item__hide'
+
 scopeButton.addEventListener('click', () => {
-    
-    if (arrow.classList.contains('__scope__active')) {
-        
-        actionList()
-    } else {
-        
-        actionList(true)
-    }
+
+    arrow.classList.contains('__scope__active') ? actionList() : actionList(true)
 })
 
 scopeList.addEventListener('click', (event) => {
+    
+    const scopeItem = event.target
 
     if (
-        event.target.classList.contains('scope__list__item') &&
-        !event.target.classList.contains('__active__item')
+        scopeItem.classList.contains('scope__list__item') &&
+        !scopeItem.classList.contains('__active__item')
     ) {
         
         const actionItemList = scopeList.querySelector('.__active__item')
@@ -27,23 +25,28 @@ scopeList.addEventListener('click', (event) => {
         if (actionItemList) {
             actionItemList.classList.remove('__active__item')
         }
-
-        const scopeItem = event.target
-        const scopeEvent = scopeItem.getAttribute('data-scope')
         
         activeEvent.innerText = scopeItem.innerText
         scopeItem.classList.add('__active__item')
-        
-        preloader.classList.add('preloader__active')
 
-        delay(1000).then(() => {
-
-            sortList(scopeEvent)
-            preloader.classList.remove('preloader__active')
-            actionList()
-        })
+        preloaderAnimation(scopeItem.getAttribute('data-scope'))
+    
+        actionList()
     }
 })
+
+async function preloaderAnimation (scopeEvent) {
+
+    preloader.classList.add('preloader__active')
+    actionProductItemAll()
+
+    await delay(1000).then(() => sortList(scopeEvent))
+    await delay(500).then(() => preloader.classList.remove('preloader__active'))
+    
+    actionProductItemAll(true)
+}
+
+
 
 function actionList (action = false) {
     
@@ -64,13 +67,9 @@ function sortList (method) {
     
     if (method === 'min') {
         productsItems.sort((a, b) => getPrice(a) > getPrice(b) ? 1 : -1)
-    }
-
-    if (method === 'max') {
+    } else if (method === 'max') {
         productsItems.sort((a, b) => getPrice(a) > getPrice(b) ? -1 : 1)
-    }
-
-    if (method === 'abc') {
+    } else if (method === 'abc') {
         productsItems.sort((a, b) => getName(a) > getName(b) ? 1 : -1)
     }
 
@@ -90,17 +89,8 @@ function getName (element) {
 function updateProductList (list) {
     
     const productList = document.querySelector('#product__list__wrap')
-
+    
     for (const item of list) {
         productList.appendChild(item)
     }
-}
-
-function delay (wait = 3000) {
-    const promise = new Promise((resolve, reject) => {
-        setTimeout( () => {
-            resolve()
-        }, wait)
-    })
-    return promise
 }

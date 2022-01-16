@@ -54,7 +54,10 @@ form.addEventListener('submit', (event) => {
         }
 
         const newProductItem = new ProductItem(product)
-        newProductItem.appendProductItem(newProductItem)
+            newProductItem.appendProductItem(newProductItem)
+
+        const newElem = document.querySelector('.item__hide') 
+        delay(500).then(() => actionProductItem(newElem, true))
 
         event.target.reset()
 

@@ -1,7 +1,7 @@
 class ProductList {
 
     static CLASS_PRODUCT_LIST = 'product__list__wrap'
-    static CLASS_ITEM = 'product__item'
+    static CLASS_ITEM = ['product__item', 'item__hide']
     static CLASS_PRODUCT_DELETE = 'product__item__delete'
     static CLASS_COVER_IMAGE = 'product__cover__image'
     static CLASS_IMAGE = 'product__image'
@@ -27,7 +27,7 @@ class ProductList {
             header = this.createProductNode('p', ProductList.CLASS_HEADER, options.header),
             description = this.createProductNode('p', ProductList.CLASS_DESCRIPTION, options.description),
             price = this.createProductNode('p', ProductList.CLASS_PRICE, options.price)
-
+        
         coverImage.appendChild(image)
         itemBody.appendChild(header)
         itemBody.appendChild(description)
@@ -44,7 +44,8 @@ class ProductList {
     createProductNode(elementType, className, params = '') {
 
         const element = document.createElement(elementType)
-            element.classList.add(className)
+
+        typeof className === 'object' ? element.classList.add(...className) : element.classList.add(className)
 
         if (!params) {
             return element
@@ -74,4 +75,28 @@ class ProductItem extends ProductList {
         this.description = options.description
         this.price = options.price
     }
+}
+
+function actionProductItemAll (visible = false) {
+    
+    const productItems = document.querySelectorAll('.product__item')
+
+    for (const item of productItems) {
+        
+        actionProductItem(item, visible)
+    }
+}
+
+function actionProductItem (productItem, visible = false) {
+
+    visible ? productItem.classList.remove('item__hide') : productItem.classList.add('item__hide')
+}
+
+function delay (wait = 3000) {
+    const promise = new Promise((resolve, reject) => {
+        setTimeout( () => {
+            resolve()
+        }, wait)
+    })
+    return promise
 }

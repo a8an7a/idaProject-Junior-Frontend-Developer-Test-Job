@@ -27,6 +27,8 @@ for (let index = 0; index < imageLinks.length; index++) {
         newProductItem.appendProductItem(newProductItem)
 }
 
+actionProductItemAll(true)
+
 function rand(min, max) {
     return Math.round(Math.random() * (max - min) + min)
   }
