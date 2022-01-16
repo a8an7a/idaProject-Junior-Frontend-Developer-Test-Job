@@ -179,9 +179,57 @@ span.__sucess {
 }
 
 .product__list__wrap {
+    position: relative;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.preloader {
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 4px;
+    background: linear-gradient(145deg, rgba(235,235,235,0.62) 10%, rgba(255,254,251,0.8) 100%);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.preloader__active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.loading-spinner {
+    top: 20%;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    position: absolute;
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-block;
+
+    border: 6px solid #FF8484;
+    border-right-color: transparent;
+
+    animation-duration: 1.3s;
+    animation-name: rotate-forever;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes rotate-forever {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg);}
 }
 
 .product__scope {
@@ -256,7 +304,7 @@ span.__sucess {
 
 .__active {
     opacity: 1;
-    z-index: 1;
+    z-index: 2;
     transition: opacity 0.2s ease;
 }
 
@@ -269,7 +317,7 @@ span.__sucess {
 .scope__list__item {
     display: block;
     padding: 10px 16px 11px;
-    
+
     color: #B4B4B4;
     transition: all 0.3s ease-in-out;
 
@@ -444,6 +492,7 @@ span.__sucess {
         padding: 32px 16px;
         flex-direction: column;
     }
+
     .product__item {
         width: 100%;
     }

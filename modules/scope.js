@@ -2,6 +2,7 @@ const scopeButton = document.querySelector('#scope__btn')
 const arrow = document.querySelector('.btn__arrow__down')
 const scopeList  = document.querySelector('#scope__list')
 const activeEvent = scopeButton.querySelector('.btn__text')
+const preloader = document.querySelector('.preloader')
 
 scopeButton.addEventListener('click', () => {
     
@@ -30,12 +31,17 @@ scopeList.addEventListener('click', (event) => {
         const scopeItem = event.target
         const scopeEvent = scopeItem.getAttribute('data-scope')
         
-        activeEvent.innerHTML = scopeItem.innerText
+        activeEvent.innerText = scopeItem.innerText
         scopeItem.classList.add('__active__item')
-
-        sortList(scopeEvent)
         
-        actionList()
+        preloader.classList.add('preloader__active')
+
+        delay(1000).then(() => {
+
+            sortList(scopeEvent)
+            preloader.classList.remove('preloader__active')
+            actionList()
+        })
     }
 })
 
@@ -85,11 +91,16 @@ function updateProductList (list) {
     
     const productList = document.querySelector('#product__list__wrap')
 
-    while (productList.firstChild) {
-        productList.removeChild(productList.firstChild);
-    }
-
     for (const item of list) {
         productList.appendChild(item)
     }
+}
+
+function delay (wait = 3000) {
+    const promise = new Promise((resolve, reject) => {
+        setTimeout( () => {
+            resolve()
+        }, wait)
+    })
+    return promise
 }
