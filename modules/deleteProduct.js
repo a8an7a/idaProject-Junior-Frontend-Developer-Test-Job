@@ -5,9 +5,9 @@ list.addEventListener('click', (event) => {
     if (event.target.classList.contains('product__item__delete')) {
 
         const currentItem = event.target.parentNode
-        
+
         actionProductItem(currentItem, false)
 
-        delay(500).then(() => currentItem.remove())
+        delay(300).then(() => currentItem.remove())
     }
 })
