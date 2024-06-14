@@ -14,6 +14,7 @@ const imageLinks = [
 const description = 'Довольно-таки интересное описание товара в несколько строк.'
 
 for (let index = 0; index < imageLinks.length; index++) {
+    
     const num = replaceInputPrice(rand_10(1000, 100000))
     
     const item = {
@@ -30,9 +31,11 @@ for (let index = 0; index < imageLinks.length; index++) {
 actionProductItemAll(true)
 
 function rand(min, max) {
+    
     return Math.round(Math.random() * (max - min) + min)
   }
 
 function rand_10(min, max){
+    
     return Math.round(rand(min, max) / 10) * 10
 }
